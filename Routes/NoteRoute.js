@@ -39,6 +39,7 @@ exports.getUserNotes = (req, res) => {
     username: req.user.username,
     archived: false,
   })
+    .sort({ createdAt: -1 })
     .then((doc) => {
       res.status(200).send(doc);
     })
@@ -52,8 +53,8 @@ exports.getUserArchivedNotes = (req, res) => {
   Note.find({
     username: req.user.username,
     archived: true,
-    done: false,
   })
+    .sort({ createdAt: -1 })
     .then((doc) => {
       res.status(200).send(doc);
     })
@@ -81,7 +82,7 @@ exports.getUserDoneNotes = (req, res) => {
 exports.noteArchive = (req, res) => {
   Note.findOneAndUpdate(
     { _id: req.params.id },
-    { $set: { archived: true, done: false } },
+    { $set: { archived: true } },
     { returnOriginal: false }
   )
     .then((doc) => {
