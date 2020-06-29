@@ -147,3 +147,17 @@ exports.deleteNote = (req, res) => {
       return res.status(500).send({ error: `internal server error: ${err}` });
     });
 };
+
+exports.editNote = (req, res) => {
+  Note.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: { body: req.body.body } },
+    { returnOriginal: false }
+  )
+    .then((doc) => {
+      return res.status(200).send(doc);
+    })
+    .catch((err) => {
+      return res.status(500).send({ error: `internal server error: ${err}` });
+    });
+};

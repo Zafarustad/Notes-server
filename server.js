@@ -15,6 +15,7 @@ const {
   markNoteDone,
   markNoteUndone,
   deleteNote,
+  editNote
 } = require('./Routes/NoteRoute');
 const { authToken } = require('./utils/AuthToken');
 
@@ -57,6 +58,7 @@ app.put('/archive/:id', authToken, noteArchive);
 app.put('/unarchive/:id', authToken, noteUnarchive);
 app.put('/done/:id', authToken, markNoteDone);
 app.put('/undone/:id', authToken, markNoteUndone);
+app.put('/edit/:id', authToken, editNote);
 app.delete('/note/:id', authToken, deleteNote);
 
 app.listen(port, () => {
